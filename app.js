@@ -47,7 +47,7 @@ server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function () {
 /**
  * Created by rmolodyko on 25.01.2016.
  */
-var io = require('socket.io').listen(8000);
+var io = require('socket.io').listen(server);
 
 // Wait connections
 io.sockets.on('connection', function (socket) {
