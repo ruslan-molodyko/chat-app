@@ -5,7 +5,7 @@ const cluster = require('cluster'),
       ],
       production = process.env.NODE_ENV == 'production';
 
-let stopping = false;
+var stopping = false;
 
 cluster.on('disconnect', function(worker) {
   if (production) {
@@ -18,15 +18,15 @@ cluster.on('disconnect', function(worker) {
 });
 
 if (cluster.isMaster) {
-  const workerCount = process.env.NODE_CLUSTER_WORKERS || 4;
-  console.log(`Starting ${workerCount} workers...`);
-  for (let i = 0; i < workerCount; i++) {
+  var workerCount = process.env.NODE_CLUSTER_WORKERS || 4;
+  console.log('Starting ${workerCount} workers...');
+  for (var i = 0; i < workerCount; i++) {
     cluster.fork();
   }
   if (production) {
     stopSignals.forEach(function (signal) {
       process.on(signal, function () {
-        console.log(`Got ${signal}, stopping workers...`);
+        console.log('Got ${signal}, stopping workers...');
         stopping = true;
         cluster.disconnect(function () {
           console.log('All workers stopped, exiting.');
